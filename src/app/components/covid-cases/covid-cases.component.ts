@@ -6,8 +6,7 @@ import {MinMaxCases} from "../../models/min-max-cases";
 
 @Component({
     selector: 'app-covid-cases',
-    templateUrl: './covid-cases.component.html',
-    styleUrls: ['./covid-cases.component.css']
+    templateUrl: './covid-cases.component.html'
 })
 export class CovidCasesComponent implements OnInit {
     covidCasesForm: FormGroup;
@@ -16,18 +15,6 @@ export class CovidCasesComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder,
                 private covidCasesService: CovidCasesService) {
-    }
-
-    ngOnInit(): void {
-        this.covidCasesService.getCountryList().subscribe({
-            next: countries => this.countryList = countries
-        });
-
-        this.covidCasesForm = this.formBuilder.group({
-            country: [null, Validators.required],
-            from: [null, Validators.required],
-            to: [null, Validators.required]
-        });
     }
 
     get selectedCountry() {
@@ -40,6 +27,18 @@ export class CovidCasesComponent implements OnInit {
 
     get to() {
         return this.covidCasesForm.controls['to'];
+    }
+
+    ngOnInit(): void {
+        this.covidCasesService.getCountryList().subscribe({
+            next: countries => this.countryList = countries
+        });
+
+        this.covidCasesForm = this.formBuilder.group({
+            country: [null, Validators.required],
+            from: [null, Validators.required],
+            to: [null, Validators.required]
+        });
     }
 
     submit() {
